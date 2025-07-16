@@ -7,8 +7,7 @@ namespace GoogleHomePageTest.Pages
     {
         public HomePage(IWebDriver driver) : base(driver) { }
 
-        const string SearchText = "What is automated tests?";
-        const string SearchTextTitle = SearchText + " - Szukaj w Google";
+        const string SearchTextTitle = " - Szukaj w Google";
 
         public By _searchBoxSelector = By.XPath("//*[@id=\"APjFqb\"]");       
         public By _browserLogoSelector = By.CssSelector("[class=\"k1zIA rSk4se\"]");
@@ -23,73 +22,23 @@ namespace GoogleHomePageTest.Pages
         public By _searchResultTitleSelector = By.XPath("/html/head/title");
         public By _expandedSearchTab = By.CssSelector("[aria-expanded=\"true\"]");
         public By _expandedAppsTab = By.CssSelector("[class=\"MCcOAc IqBfM e2G3Fb cjGgHb d8Etdd LcUz9d b30Rkd\"]");
-
-        public void BrowserLogoVisibility()
+        
+        public void CheckElementVisibility(By elementSelector)
         {
-            WaitDriver.WaitForElement(_browserLogoSelector);
+            WaitDriver.WaitForElement(elementSelector);
         }
-
-        public void SearchBoxVisibility()
-        {
-            WaitDriver.WaitForElement(_searchBoxSelector);
-        }
-
-        public void TextInputToolVisibility()
-        {
-            WaitDriver.WaitForElement(_textInputToolSelector);
-        }
-
-        public void VoiceSearchVisibility()
-        {
-            WaitDriver.WaitForElement(_voiceSearchSelector);
-        }
-
-        public void LensVisibility()
-        {
-            WaitDriver.WaitForElement(_lensSelector);
-        }
-
-        public void GoogleSearchButtonVisibility()
-        {
-          WaitDriver.WaitForElement(_googleSearchButtonSelector);
-        }
-
-        public void LuckySearchButtonVisibility()
-        {
-          WaitDriver.WaitForElement(_luckySearchButtonSelector);
-        }
-
-        public void GmailButtonVisibility()
-        {
-            WaitDriver.WaitForElement(_gmailSelector);
-        }
-
-        public void ImageSearchButtonVisibility()
-        {
-            WaitDriver.WaitForElement(_imageSearchSelector);
-        }
-
-        public void LogInButtonVisibility()
-        {
-            WaitDriver.WaitForElement(_logInSelector);
-        }
-
-        public void ExpandedSearchTabVisibility()
-        {
-            WaitDriver.WaitForElement(_expandedSearchTab);
-        }
-
         public void ClickSearchBox() 
         {
             WaitDriver.WaitForClick(_searchBoxSelector);
         }
 
-        public void FillSearchBox()
+        public void FillSearchBox(string SearchText)
         {
             WaitDriver.WaitForSendKeys(_searchBoxSelector, SearchText);
         }
 
-        public bool IsSearchBoxFilledCorrectly()
+
+        public bool IsSearchBoxFilledCorrectly(string SearchText)
         {
             var element = WaitDriver.WaitForElement(_searchBoxSelector);
             var result = element.GetAttribute("value");
@@ -102,12 +51,12 @@ namespace GoogleHomePageTest.Pages
             WaitDriver.WaitForSendKeys(_searchBoxSelector, Keys.Enter);
         }
 
-        public bool IsSearchResultCorrect()
+        public bool IsSearchResultCorrect(string SearchText)
         {          
             var element = WaitDriver.WaitForElement(_searchResultTitleSelector);
             var result = element.GetAttribute("value");
 
-            return result.Equals(SearchTextTitle);
+            return result.Equals(SearchText + SearchTextTitle);
         } 
     }
 }

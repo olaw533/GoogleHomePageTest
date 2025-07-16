@@ -20,5 +20,8 @@ namespace GoogleHomePageTest.Pages
         {
             WaitDriver.WaitForClick(_acceptAllCookiesButtonSelector);
         }
+
+        
+
     }
 }

@@ -13,16 +13,19 @@ namespace GoogleHomePageTest.Tests
 
             homePage.AcceptAllCookies();
 
-            homePage.TextInputToolVisibility();
-            homePage.BrowserLogoVisibility();
-            homePage.SearchBoxVisibility();
-            homePage.VoiceSearchVisibility();
-            homePage.LensVisibility();
-            homePage.GoogleSearchButtonVisibility();
-            homePage.LuckySearchButtonVisibility();
-            homePage.GmailButtonVisibility();
-            homePage.ImageSearchButtonVisibility();
-            homePage.LogInButtonVisibility();
+            homePage.CheckElementVisibility(homePage._searchBoxSelector);
+            homePage.CheckElementVisibility(homePage._browserLogoSelector);
+            homePage.CheckElementVisibility(homePage._textInputToolSelector);
+            homePage.CheckElementVisibility(homePage._voiceSearchSelector);
+            homePage.CheckElementVisibility(homePage._googleSearchButtonSelector);
+            homePage.CheckElementVisibility(homePage._luckySearchButtonSelector);
+            homePage.CheckElementVisibility(homePage._gmailSelector);
+            homePage.CheckElementVisibility(homePage._imageSearchSelector);
+            homePage.CheckElementVisibility(homePage._logInSelector);
+            homePage.CheckElementVisibility(homePage._lensSelector);
+            homePage.CheckElementVisibility(homePage._searchResultTitleSelector);
+            homePage.CheckElementVisibility(homePage._expandedSearchTab);
+            homePage.CheckElementVisibility(homePage._expandedAppsTab);
         }
 
         [Test(Description = "Google search box test")]
@@ -30,17 +33,19 @@ namespace GoogleHomePageTest.Tests
         {
             HomePage homePage = new HomePage(Driver);
 
+            const string SearchText = "What is automated tests?";
+
             homePage.AcceptAllCookies();
 
             homePage.ClickSearchBox();
-            homePage.FillSearchBox();
+            homePage.FillSearchBox(SearchText); ;
 
-            Assert.That(homePage.IsSearchBoxFilledCorrectly());
-            
-            homePage.ExpandedSearchTabVisibility();
+            Assert.That(homePage.IsSearchBoxFilledCorrectly(SearchText));
+
+            homePage.CheckElementVisibility(homePage._expandedSearchTab);
             homePage.ClickSearch();
 
-            Assert.That(homePage.IsSearchResultCorrect());
+            Assert.That(homePage.IsSearchResultCorrect(SearchText));
         }
     }
 }
